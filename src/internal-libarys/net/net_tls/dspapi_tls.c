@@ -243,7 +243,12 @@ int dsp_tls_send(int fd, const void* buf, int len, int flags)
     int ret = -1;
 
     priv_tls = (ptls_socket_priv_t)fd;
-    
+
+    if (priv_tls->api.send == NULL)
+    {
+        return -1;
+    }
+
     ret = priv_tls->api.send(priv_tls->api.priv, priv_tls->fd, buf, len, flags);
 
     return ret;
@@ -260,6 +265,11 @@ int dsp_tls_recv(int fd, void* buf, int len, int flags)
 {
     ptls_socket_priv_t priv_tls = NULL;
     int ret = -1;
+
+    if (priv_tls->api.recv == NULL)
+    {
+        return -1;
+    }
 
     priv_tls = (ptls_socket_priv_t)fd;
     ret = priv_tls->api.recv(priv_tls->api.priv, priv_tls->fd, buf, len, flags);
@@ -279,6 +289,11 @@ int dsp_tls_socketclose(int fd)
     int ret = -1;
     ptls_socket_priv_t priv_tls = NULL;
 
+    if (priv_tls->api.socketclose == NULL)
+    {
+        return -1;
+    }
+    
     priv_tls = (ptls_socket_priv_t)fd;
     ret = priv_tls->api.socketclose(priv_tls->api.priv, priv_tls->fd);
 

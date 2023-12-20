@@ -37,7 +37,8 @@ INCLUDE_PATH += -I ../src/internal-libarys/net/net-container
 INCLUDE_PATH += -I ../src/internal-libarys/net/net_socket
 INCLUDE_PATH += -I ../src/internal-libarys/net/net_tls
 INCLUDE_PATH += -I ../src/internal-libarys/platform
-INCLUDE_PATH += -I ../src 
+INCLUDE_PATH += -I ../src
+INCLUDE_PATH += -I ../src/internal-libarys
 
 
 #CFLAGS += -DA726_MTK_BOARD
@@ -64,11 +65,12 @@ VPATH += ../src/internal-libarys/net/net_socket
 VPATH += ../src/internal-libarys/net/net_tls
 VPATH += ../src/internal-libarys/platform
 VPATH += ../src
+VPATH += ../src/internal-libarys
 
 
 ASM_OBJS = 
 
-C_OBJS += dsp_lib_api.o
+C_OBJS += dsp_lib_based_api.o dsp_lib_alg_api.o 
 C_OBJS += cJSON.o cJSON_Utils.o
 #C_OBJS += chttp.o dymem.o tms_dspread.o tms_dspread_platform.o lring.o
 C_OBJS += chttp.o dymem.o
