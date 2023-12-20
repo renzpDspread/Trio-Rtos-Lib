@@ -266,12 +266,11 @@ int dsp_tls_recv(int fd, void* buf, int len, int flags)
     ptls_socket_priv_t priv_tls = NULL;
     int ret = -1;
 
+    priv_tls = (ptls_socket_priv_t)fd;    
     if (priv_tls->api.recv == NULL)
     {
         return -1;
     }
-
-    priv_tls = (ptls_socket_priv_t)fd;
     ret = priv_tls->api.recv(priv_tls->api.priv, priv_tls->fd, buf, len, flags);
 
     return ret;
@@ -289,12 +288,12 @@ int dsp_tls_socketclose(int fd)
     int ret = -1;
     ptls_socket_priv_t priv_tls = NULL;
 
+    priv_tls = (ptls_socket_priv_t)fd;
     if (priv_tls->api.socketclose == NULL)
     {
         return -1;
-    }
+    }    
     
-    priv_tls = (ptls_socket_priv_t)fd;
     ret = priv_tls->api.socketclose(priv_tls->api.priv, priv_tls->fd);
 
     return ret;
