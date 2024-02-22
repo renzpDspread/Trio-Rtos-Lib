@@ -211,7 +211,11 @@ int dsp_tls_connect(int fd, char* host_or_ip, char* port)
 
     hostinfo.host = malloc(len);
     if (!hostinfo.host)
-        return -1;
+    {
+        Dsp_Lib_Trace("%s.%d\r\n", __FUNCTION__, __LINE__);
+        return -1;        
+    }
+        
     
     memset(hostinfo.host, 0, len);
     memcpy(hostinfo.host, host_or_ip, strlen(host_or_ip));
@@ -220,6 +224,7 @@ int dsp_tls_connect(int fd, char* host_or_ip, char* port)
     priv_tls = (ptls_socket_priv_t)fd;
     if (priv_tls->api.connect == NULL)
     {
+        Dsp_Lib_Trace("%s.%d\r\n", __FUNCTION__, __LINE__);
         return -1;
     }
     ret = priv_tls->api.connect(priv_tls->api.priv, priv_tls->fd, NULL, 0, &hostinfo);
@@ -266,12 +271,11 @@ int dsp_tls_recv(int fd, void* buf, int len, int flags)
     ptls_socket_priv_t priv_tls = NULL;
     int ret = -1;
 
+    priv_tls = (ptls_socket_priv_t)fd;    
     if (priv_tls->api.recv == NULL)
     {
         return -1;
     }
-
-    priv_tls = (ptls_socket_priv_t)fd;
     ret = priv_tls->api.recv(priv_tls->api.priv, priv_tls->fd, buf, len, flags);
 
     return ret;
@@ -289,12 +293,12 @@ int dsp_tls_socketclose(int fd)
     int ret = -1;
     ptls_socket_priv_t priv_tls = NULL;
 
+    priv_tls = (ptls_socket_priv_t)fd;
     if (priv_tls->api.socketclose == NULL)
     {
         return -1;
-    }
+    }    
     
-    priv_tls = (ptls_socket_priv_t)fd;
     ret = priv_tls->api.socketclose(priv_tls->api.priv, priv_tls->fd);
 
     return ret;
