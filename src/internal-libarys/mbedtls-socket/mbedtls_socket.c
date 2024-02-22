@@ -740,6 +740,7 @@ static int mbedtls_fd_isset(void* priv, int fd, pmbedtls_sockfd_set_t pset)
 //    return -1;
 //}
 
+unsigned char *pHead = NULL;
 /*--------------------------------------
 |   Function Name:
 |       mbedtls_init
@@ -762,8 +763,17 @@ int mbedtls_init(void)
     
     #if defined(MBEDTLS_PLATFORM_MEMORY)
     #if defined(MBEDTLS_MEMORY_BUFFER_ALLOC_C)
-    static unsigned char ptr[MBEDTLS_HEAP_SIZE];
-    mbedtls_memory_buffer_alloc_init(ptr, MBEDTLS_HEAP_SIZE);
+    //static unsigned char ptr[MBEDTLS_HEAP_SIZE];
+    //mbedtls_memory_buffer_alloc_init(ptr, MBEDTLS_HEAP_SIZE);
+    if (!pHead)
+    {
+        pHead = malloc( MBEDTLS_HEAP_SIZE * 2 );
+        if (!pHead)
+        {
+            return ret;
+        }        
+    }
+    mbedtls_memory_buffer_alloc_init(pHead, MBEDTLS_HEAP_SIZE);
     #else
     mbedtls_platform_set_calloc_free(porting_mbedtls_calloc, porting_mbedtls_free);
     #endif //defined(MBEDTLS_MEMORY_BUFFER_ALLOC_C)
@@ -828,6 +838,13 @@ int mbedtls_uninit(void)
     mbedtls_ssl_session_init(&g_mbedtls_priv.session);
 #endif
 #endif
+
+    if (pHead)
+    {
+        memset( pHead, 0, MBEDTLS_HEAP_SIZE );
+        free( pHead );
+        pHead = NULL;
+    }
     return 0;
 }
 
