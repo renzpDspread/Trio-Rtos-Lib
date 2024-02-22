@@ -78,8 +78,9 @@ typedef struct md5_context
 |   prototypes
 +----------------------------------------------------------------------------*/
 /**TLS**/
-GLOBAL int dsp_tls_init(void);
-GLOBAL int dsp_tls_cacert(const unsigned char *pdata, int len);
+GLOBAL int dsp_tls_init( void );
+GLOBAL int dsp_tls_uninit(void);
+GLOBAL int dsp_tls_cacert( const unsigned char *pdata, int len );
 GLOBAL int dsp_tls_clikey(const unsigned char* pdata, int len);
 GLOBAL int dsp_tls_clicert(const unsigned char* pdata, int len);
 GLOBAL int dsp_tls_vfymode(int fd, int mode);

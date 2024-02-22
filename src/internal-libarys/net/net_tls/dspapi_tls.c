@@ -83,6 +83,23 @@ int dsp_tls_init(void)
     return ret;
 }
 
+
+/*--------------------------------------
+|   Function Name:
+|       dsp_tls_uninit
+|   Description:
+|   Parameters:
+|   Returns:
++-------------------------------------*/
+int dsp_tls_uninit(void)
+{
+    int ret = -1;
+
+    ret = mbedtls_uninit();
+
+    return ret;
+}
+
 /*--------------------------------------
 |   Function Name:
 |       dsp_tls_cacert

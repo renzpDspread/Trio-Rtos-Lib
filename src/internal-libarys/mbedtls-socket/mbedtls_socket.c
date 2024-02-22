@@ -767,7 +767,7 @@ int mbedtls_init(void)
     //mbedtls_memory_buffer_alloc_init(ptr, MBEDTLS_HEAP_SIZE);
     if (!pHead)
     {
-        pHead = malloc( MBEDTLS_HEAP_SIZE * 2 );
+        pHead = malloc( MBEDTLS_HEAP_SIZE);
         if (!pHead)
         {
             return ret;
