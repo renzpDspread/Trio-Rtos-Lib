@@ -140,7 +140,7 @@ u32 dsp_get_emv_addr( void )
 
     if (addr == 0)
     {
-        addr = 0x14100220;
+        addr = 0x14100000;
     }
 
     addr += 0x220;
