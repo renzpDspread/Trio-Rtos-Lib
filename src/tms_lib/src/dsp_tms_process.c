@@ -131,7 +131,7 @@ int std_asc_2_bcd(char* asc, int asc_len, char* bcd){
 }
 u32 dsp_get_emv_addr( void )
 {
-    u32 addr;
+    u32 addr=0;
     u8 addr_buf[4] = { 0 };
     if (GetEnv( I_EMVADDR_FILE, "e_addr", (u8 *)addr_buf ) == 0)
     {
